@@ -15,12 +15,12 @@ use lsm_tree::{AbstractTree, AnyTree};
 use std::{fs::File, path::PathBuf};
 
 /// Recovers partitions
+#[allow(clippy::significant_drop_tightening)]
 pub fn recover_partitions(keyspace: &Keyspace) -> crate::Result<()> {
     use lsm_tree::coding::Decode;
 
     let partitions_folder = keyspace.config.path.join(PARTITIONS_FOLDER);
 
-    #[allow(clippy::significant_drop_tightening)]
     let mut partitions_lock = keyspace.partitions.write().expect("lock is poisoned");
 
     for dirent in std::fs::read_dir(&partitions_folder)? {
@@ -112,17 +112,15 @@ pub fn recover_partitions(keyspace: &Keyspace) -> crate::Result<()> {
 }
 
 #[allow(clippy::too_many_lines)]
+#[allow(clippy::significant_drop_tightening)]
 pub fn recover_sealed_memtables(
     keyspace: &Keyspace,
     sealed_journal_paths: &[PathBuf],
 ) -> crate::Result<()> {
-    #[allow(clippy::significant_drop_tightening)]
     let mut flush_manager_lock = keyspace.flush_manager.write().expect("lock is poisoned");
 
-    #[allow(clippy::significant_drop_tightening)]
     let mut journal_manager_lock = keyspace.journal_manager.write().expect("lock is poisoned");
 
-    #[allow(clippy::significant_drop_tightening)]
     let partitions_lock = keyspace.partitions.read().expect("lock is poisoned");
 
     for journal_path in sealed_journal_paths {

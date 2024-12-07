@@ -76,10 +76,10 @@
 #![deny(clippy::all, missing_docs, clippy::cargo)]
 #![deny(clippy::unwrap_used)]
 #![deny(clippy::indexing_slicing)]
-#![warn(clippy::pedantic, clippy::nursery)]
-#![warn(clippy::expect_used)]
+// #![warn(clippy::pedantic, clippy::nursery)]
+// #![warn(clippy::expect_used)]
 #![allow(clippy::missing_const_for_fn)]
-#![warn(clippy::multiple_crate_versions)]
+#![allow(clippy::multiple_crate_versions)]
 
 mod batch;
 
